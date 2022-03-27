@@ -6,6 +6,7 @@ use App\Http\Controllers\ButirsController;
 use App\Http\Controllers\JenjangsController;
 use App\Http\Controllers\Kategori1sController;
 use App\Http\Controllers\Kategori2sController;
+use App\Http\Controllers\RegisterController;
 
 
 /*
@@ -45,23 +46,24 @@ Route::get('/giat', function () {
 });
 
 //Jenjang
-Route::get('/jenjangs', [JenjangsController::class,'index']);
+Route::get('/jenjangs', [JenjangsController::class, 'index']);
 //halaman single jenjang
-Route::get('/jenjangs/{jenjang:jen_slug}',[JenjangsController::class,'show']);
+Route::get('/jenjangs/{jenjang:jen_slug}', [JenjangsController::class, 'show']);
 
 //Kategori
-Route::get('/kategori1s', [Kategori1sController::class,'index']);
+Route::get('/kategori1s', [Kategori1sController::class, 'index']);
 //halaman single jenjang
-Route::get('/kategori1s/{kategori:kat01_slug}',[Kategori1sController::class,'show']);
+Route::get('/kategori1s/{kategori:kat01_slug}', [Kategori1sController::class, 'show']);
 
 //Kategori2
-Route::get('/kategori2s', [Kategori2sController::class,'index']);
+Route::get('/kategori2s', [Kategori2sController::class, 'index']);
 //halaman single jenjang
-Route::get('/kategori2s/{kategori:kat02_slug}',[Kategori2sController::class,'show']);
+Route::get('/kategori2s/{kategori:kat02_slug}', [Kategori2sController::class, 'show']);
 
 //Butir
-Route::get('/butirs', [ButirsController::class,'index']);
+Route::get('/butirs', [ButirsController::class, 'index']);
 //halaman single butir
-Route::get('/butir/{butir:but_slug}',[ButirsController::class,'show']);
+Route::get('/butir/{butir:but_slug}', [ButirsController::class, 'show']);
 
-Route::get('/login', [LoginController::class,'index']);
+Route::get('/login', [LoginController::class, 'index']);
+Route::get('/register', [RegisterController::class, 'index']);
