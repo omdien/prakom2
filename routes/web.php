@@ -65,5 +65,9 @@ Route::get('/butirs', [ButirsController::class, 'index']);
 //halaman single butir
 Route::get('/butir/{butir:but_slug}', [ButirsController::class, 'show']);
 
+// halaman login
 Route::get('/login', [LoginController::class, 'index']);
+
+// halaman register 
 Route::get('/register', [RegisterController::class, 'index']);
+Route::post('/register', [RegisterController::class, 'store']);
