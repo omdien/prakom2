@@ -40,4 +40,9 @@ class Butir extends Model
     {
         return $this->belongsTo(Jenjang::class);
     }
+
+    public function getRouteKeyName()
+    {
+        return 'but_slug';
+    }
 }

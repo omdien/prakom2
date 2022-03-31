@@ -7,8 +7,8 @@ use App\Http\Controllers\JenjangsController;
 use App\Http\Controllers\Kategori1sController;
 use App\Http\Controllers\Kategori2sController;
 use App\Http\Controllers\RegisterController;
-use App\Http\Controllers\DashboardController;
-
+use App\Http\Controllers\DashbordButirsController;
+use PhpParser\Builder\Function_;
 
 /*
 |--------------------------------------------------------------------------
@@ -76,4 +76,8 @@ Route::get('/register', [RegisterController::class, 'index'])->middleware('guest
 Route::post('/register', [RegisterController::class, 'store']);
 
 // halaman dashboard
-Route::get('/dashboard', [DashboardController::class, 'index'])->middleware('auth');
+Route::get('/dashboard', function(){
+    return view('dashboard.index');
+})->middleware('auth');
+
+Route::resource('/dashboard/butirs',DashbordButirsController::class)->middleware('auth');
