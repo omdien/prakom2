@@ -76,8 +76,9 @@ Route::get('/register', [RegisterController::class, 'index'])->middleware('guest
 Route::post('/register', [RegisterController::class, 'store']);
 
 // halaman dashboard
-Route::get('/dashboard', function(){
+Route::get('/dashboard', function () {
     return view('dashboard.index');
 })->middleware('auth');
 
-Route::resource('/dashboard/butirs',DashbordButirsController::class)->middleware('auth');
+Route::get('/dashboard/butirs/checkSlug', [DashbordButirsController::class, 'checkSlug'])->middleware('auth');
+Route::resource('/dashboard/butirs', DashbordButirsController::class)->middleware('auth');
