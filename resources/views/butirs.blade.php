@@ -21,7 +21,13 @@
 
 @if ($butirs->count())
 <div class="card mb-3">
-  <img src="https://source.unsplash.com/1200x400?{{ $butirs[0]->bat_key }}" class="card-img-top" alt="{{ $butirs[0]->kategori02->kat02_kategori }}">
+  @if($butirs[0]->but_gambar)
+  <div style="max-height:350px; overflow:hidden;">
+    <img src="{{ asset('storage/' . $butirs[0]->but_gambar) }}" alt="{{ $butirs[0]->kategori02->kat02_kategori }}" class="img-fluid">
+  </div>
+  @else
+  <img src="https://source.unsplash.com/1200x400?{{ $butirs[0]->but_key }}" class="card-img-top" alt="{{ $butirs[0]->kategori02->kat02_kategori }}">
+  @endif
   <div class="card-body text-center">
     <a href="/butir/{{ $butirs[0]->but_slug }}" class="text-decoration-none text-dark">
       <h3 class="card-title">{{ $butirs[0]->but_kegiatan }}</h3>
@@ -43,7 +49,11 @@
     <div class="col-md-4" mb-5>
       <div class="card">
         <div class="position-absolute px-3 py-2 text-white" style="background-color:rgba(0, 0, 0, 0.7)"><a href="/butirs?jenjang={{ $butir->jenjang->jen_slug }}" class="text-white text-decoration-none">{{ $butir->jenjang->jen_slug }}</a></div>
+        @if($butir->but_gambar)
+        <img src="{{ asset('storage/' . $butir->but_gambar) }}" alt="{{ $butir->kategori02->kat02_kategori }}" class="img-fluid">
+        @else
         <img src="https://source.unsplash.com/500x400/?{{ $butir->but_key }}" class="card-img-top" alt="{{ $butir->but_key }}">
+        @endif
         <div class="card-body">
           <h5 class="card-title"><a href="/butir/{{ $butir->but_slug }}" class="text-decoration-none"> {{ $butir->but_kegiatan }}</a></h5>
           <small class="">

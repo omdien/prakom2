@@ -46,12 +46,15 @@ class DashbordButirsController extends Controller
     public function store(Request $request)
     {
         // return $request;
+        //return $request->file('gambar')->store('post-images');
+        //ddd($request);
         $validateData = $request->validate([
             'but_id' => 'required',
             'kategori02_id' => 'required',
             'but_kegiatan' => 'required|max:255',
             'but_slug' => 'required|unique:butirs',
             'but_key' => 'required',
+            'but_gambar' => 'image|file|max:1024',
             'but_desc' => 'required',
             'but_satuan' => 'required',
             'but_kredit' => 'required',
@@ -60,6 +63,10 @@ class DashbordButirsController extends Controller
             'jenjang_id' => 'required',
             'but_contoh' => 'required'
         ]);
+
+        if ($request->file('but_gambar')) {
+            $validateData['but_gambar'] = $request->file('but_gambar')->store('butir-images');
+        };
 
         $validateData['but_excerpt'] = Str::limit($request->but_desc, 200);
 
@@ -89,7 +96,11 @@ class DashbordButirsController extends Controller
      */
     public function edit(Butir $butir)
     {
-        //
+        return view('dashboard.butirs.edit', [
+            'butir' => $butir,
+            'kategories' => Kategori02::all(),
+            'jenjangs' => Jenjang::all()
+        ]);
     }
 
     /**
@@ -101,7 +112,30 @@ class DashbordButirsController extends Controller
      */
     public function update(Request $request, Butir $butir)
     {
-        //
+        $rules = [
+            'but_id' => 'required',
+            'kategori02_id' => 'required',
+            'but_kegiatan' => 'required|max:255',
+            'but_key' => 'required',
+            'but_desc' => 'required',
+            'but_satuan' => 'required',
+            'but_kredit' => 'required',
+            'but_batasan' => 'required',
+            'but_fisik' => 'required',
+            'jenjang_id' => 'required',
+            'but_contoh' => 'required'
+        ];
+
+        if ($request->but_slug != $butir->but_slug) {
+            $rules['but_slug'] = 'required|unique:butirs';
+        };
+
+        $validateData = $request->validate($rules);
+
+        Butir::where('id', $butir->id)
+            ->update($validateData);
+
+        return redirect('dashboard/butirs')->with('success', 'Butir telah di update');
     }
 
     /**
@@ -112,12 +146,15 @@ class DashbordButirsController extends Controller
      */
     public function destroy(Butir $butir)
     {
-        //
+        Butir::destroy($butir->id);
+
+        return redirect('dashboard/butirs')->with('success', 'Butir telah dihapus');
     }
 
     public function checkSlug(Request $request)
     {
-        $slug = SlugService::createSlug(Butir::class, 'but_slug', $request->but_kegiatan);
-        return response()->json(['but_slug => $slug']);
+        dd($request);
+        $but_slug = SlugService::createSlug(Butir::class, 'but_slug', $request->but_kegiatan);
+        return response()->json(['but_slug => $but_slug']);
     }
 }
