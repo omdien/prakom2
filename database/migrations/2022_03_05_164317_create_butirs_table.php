@@ -21,6 +21,7 @@ return new class extends Migration
             $table->string('but_slug')->unique();
             $table->string('but_excerpt');
             $table->string('but_key');
+            $table->string('but_gambar')->nullable();
             $table->text('but_desc');
             $table->string('but_satuan');
             $table->float('but_kredit');
